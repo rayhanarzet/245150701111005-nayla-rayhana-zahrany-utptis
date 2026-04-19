@@ -1,0 +1,83 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API E-Commerce Sederhana",
+        "description": "Dokumentasi API untuk UTP Teknologi Integrasi Sistem",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/items": {
+            "get": {
+                "summary": "Get all items",
+                "operationId": "2cbf07eb95d033f8775c36424ac8fa06",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create item",
+                "operationId": "af37857663e6805dd367a55f374c9ee1",
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/items/{id}": {
+            "get": {
+                "summary": "Get item by ID",
+                "operationId": "7f1ffbd9fa2b704c61ebcccb636ebb27",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update full item",
+                "operationId": "4ac9fb55d8a18bd1cba3a29d84f9fd4d",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete item",
+                "operationId": "0f88b60b73861d5414f8ea2fedd3dfc3",
+                "responses": {
+                    "200": {
+                        "description": "Deleted"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update partial item",
+                "operationId": "8171e1e0bd396fd89495538eb21a8869",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    }
+}
