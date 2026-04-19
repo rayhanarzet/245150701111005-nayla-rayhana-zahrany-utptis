@@ -37,14 +37,22 @@ class ItemController extends Controller
     }
 
     // fitur get by id menampilkan barang berdasarkan parameter id  
-   #[OA\Get(
+    #[OA\Get(
         path: "/api/items/{id}",
         summary: "Get item by ID",
-    responses: [
-        new OA\Response(response: 200, description: "Success"),
-        new OA\Response(response: 404, description: "Not Found")
-    ]
-)]
+        parameters: [
+            new OA\Parameter(
+                name: "id",
+                in: "path",
+                required: true,
+                schema: new OA\Schema(type: "integer")
+            )
+        ],
+        responses: [
+            new OA\Response(response: 200, description: "Success"),
+            new OA\Response(response: 404, description: "Not Found")
+        ]
+    )]
     public function show($id)
     {
         $data = $this->getData();
@@ -61,14 +69,24 @@ class ItemController extends Controller
     }
 
     // fitur post membuat nama item dan/atau harga barang
-    #[OA\Post(
+   #[OA\Post(
         path: "/api/items",
         summary: "Create item",
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                required: ["nama", "harga"],
+                properties: [
+                    new OA\Property(property: "nama", type: "string", example: "Sepatu"),
+                    new OA\Property(property: "harga", type: "integer", example: 200000)
+                ]
+            )
+        ),
         responses: [
-        new OA\Response(response: 201, description: "Created"),
-        new OA\Response(response: 400, description: "Bad Request")
-    ]
-)]
+            new OA\Response(response: 201, description: "Created"),
+            new OA\Response(response: 400, description: "Bad Request")
+        ]
+    )]
     public function store(Request $request)
     {
         $data = $this->getData();
@@ -96,11 +114,29 @@ class ItemController extends Controller
     #[OA\Put(
         path: "/api/items/{id}",
         summary: "Update full item",
+        parameters: [
+            new OA\Parameter(
+                name: "id",
+                in: "path",
+                required: true,
+                schema: new OA\Schema(type: "integer")
+            )
+        ],
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                required: ["nama", "harga"],
+                properties: [
+                    new OA\Property(property: "nama", type: "string"),
+                    new OA\Property(property: "harga", type: "integer")
+                ]
+            )
+        ),
         responses: [
-        new OA\Response(response: 200, description: "Success"),
-        new OA\Response(response: 404, description: "Not Found")
-    ]
-)]
+            new OA\Response(response: 200, description: "Success"),
+            new OA\Response(response: 404, description: "Not Found")
+        ]
+    )]
     public function update(Request $request, $id)
     {
         $data = $this->getData();
@@ -130,14 +166,31 @@ class ItemController extends Controller
     }
 
     // fitur patch mengedit salah satu data dari barang
-   #[OA\Patch(
+  #[OA\Patch(
         path: "/api/items/{id}",
         summary: "Update partial item",
-         responses: [
-        new OA\Response(response: 200, description: "Success"),
-        new OA\Response(response: 404, description: "Not Found")
-    ]
-)]
+        parameters: [
+            new OA\Parameter(
+                name: "id",
+                in: "path",
+                required: true,
+                schema: new OA\Schema(type: "integer")
+            )
+        ],
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: "nama", type: "string"),
+                    new OA\Property(property: "harga", type: "integer")
+                ]
+            )
+        ),
+        responses: [
+            new OA\Response(response: 200, description: "Success"),
+            new OA\Response(response: 404, description: "Not Found")
+        ]
+    )]
     public function patch(Request $request, $id)
     {
         $data = $this->getData();
@@ -168,12 +221,19 @@ class ItemController extends Controller
     #[OA\Delete(
         path: "/api/items/{id}",
         summary: "Delete item",
+        parameters: [
+            new OA\Parameter(
+                name: "id",
+                in: "path",
+                required: true,
+                schema: new OA\Schema(type: "integer")
+            )
+        ],
         responses: [
             new OA\Response(response: 200, description: "Deleted"),
             new OA\Response(response: 404, description: "Not Found")
         ]
     )]
-    
     public function destroy($id)
     {
         $data = $this->getData();
